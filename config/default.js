@@ -3,4 +3,5 @@ module.exports = {
   app: require("./app"),
   db: require("./db"),
   mail: require("./mail"),
+  jwt: require("./jwt"),
 };

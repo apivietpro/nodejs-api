@@ -6,12 +6,12 @@ const config = require("config");
 const { redisClient } = require("../../../common/init.redis");
 const generateAccessToken = (customer) => {
   return jwt.sign({ _id: customer._id }, config.get("app.jwtAccessKey"), {
-    expiresIn: "20s",
+    expiresIn: config.get("jwt.accessTokenExp"),
   });
 };
 const generateRefreshToken = (customer) => {
   return jwt.sign({ _id: customer._id }, config.get("app.jwtRefreshKey"), {
-    expiresIn: "1y",
+    expiresIn: config.get("jwt.refreshTokenExp"),
   });
 };
 const setTokenBlacklist = (token) => {
