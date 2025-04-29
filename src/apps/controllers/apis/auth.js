@@ -84,7 +84,12 @@ module.exports = {
         }).save();
 
         // Return Token to client
-        res.cookie("refreshToken", refreshToken);
+        res.cookie("refreshToken", refreshToken, {
+          httpOnly: true, // Ngăn JavaScript truy cập (giúp chống XSS)
+          secure: true, // Chỉ gửi cookie qua HTTPS
+          sameSite: "None", // Bắt buộc khi dùng cross-origin
+          path: "/", // Cookie được gửi trong mọi request
+        });
         return res.status(200).json({
           customer: others,
           accessToken,
