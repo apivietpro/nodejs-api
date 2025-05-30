@@ -12,24 +12,31 @@ connectionRedis();
 //   optionSuccessStatus: 200,
 // };
 
-const allowedOrigins = [
-  // "http://localhost:3000",
-  // "https://your-frontend.vercel.app"
-];
+// const allowedOrigins = [
+//   // "http://localhost:3000",
+//   // "https://your-frontend.vercel.app"
+// ];
 
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true,
-  optionSuccessStatus: 200,
-};
+// const corsOptions = {
+//   origin: function (origin, callback) {
+//     if (!origin || allowedOrigins.includes(origin)) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error("Not allowed by CORS"));
+//     }
+//   },
+//   credentials: true,
+//   optionSuccessStatus: 200,
+// };
 
-app.use(cors(corsOptions));
+app.use(
+  cors({
+    origin: true, // Tự động phản hồi đúng origin request đến
+    credentials: true, // Cho phép gửi cookie, auth headers
+  })
+);
+
+// app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
