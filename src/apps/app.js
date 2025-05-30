@@ -12,6 +12,11 @@ connectionRedis();
 //   optionSuccessStatus: 200,
 // };
 
+const allowedOrigins = [
+  // "http://localhost:3000",
+  // "https://your-frontend.vercel.app"
+];
+
 const corsOptions = {
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
