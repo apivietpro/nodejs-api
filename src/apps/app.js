@@ -5,12 +5,25 @@ const config = require("config");
 const cors = require("cors");
 const { connectionRedis } = require("../common/init.redis");
 connectionRedis();
+// const corsOptions = {
+//   origin: "*",
+//   // origin: "http://localhost:3000",
+//   credentials: true, //access-control-allow-credentials:true
+//   optionSuccessStatus: 200,
+// };
+
 const corsOptions = {
-  origin: "*",
-  // origin: "http://localhost:3000",
-  credentials: true, //access-control-allow-credentials:true
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
   optionSuccessStatus: 200,
 };
+
 app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
